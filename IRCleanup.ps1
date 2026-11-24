@@ -15,7 +15,7 @@
       - "Back up checked" and "Back up all" back up scripts without deleting anything.
 
     Backup layout, in the backup folder:
-      <script name>\script.json      Raw Graph object incl. assignments (restorable as-is)
+      <script name>\script.json      Full Graph definition incl. assignments, for recreating the script
       <script name>\settings.txt     The portal's Settings section, human-readable
       <script name>\assignments.txt  Included/excluded groups by name, with schedule and filter
       <script name>\detect.ps1       Detection script
@@ -378,7 +378,7 @@ function Save-RemediationBackup {
     # .NET IO throughout: script names can contain [ ], which PowerShell cmdlets treat as wildcards
     [IO.Directory]::CreateDirectory($dir) | Out-Null
     $utf8 = [Text.UTF8Encoding]::new($false)
-    # script.json = raw Graph object (restorable as-is); settings.txt = the same settings as the portal shows them
+    # script.json = raw Graph object, exactly as returned; settings.txt = the same settings as the portal shows them
     [IO.File]::WriteAllText((Join-Path $dir 'script.json'), ($full | ConvertTo-Json -Depth 20), $utf8)
     [IO.File]::WriteAllText((Join-Path $dir 'settings.txt'), (Format-PortalSettings $full), $utf8)
     # Convenience file only - if it can't be built, say so in it rather than failing the backup (and blocking a delete)
