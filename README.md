@@ -62,9 +62,6 @@ A browser window opens for sign-in. Once you're signed in, the grid loads with e
 ```powershell
 # Open the grid, backing up to the remembered folder (or %APPDATA%\IRCleanup\Backups)
 .\IRCleanup.ps1
-
-# Back up to a network share for this run, using the light theme
-.\IRCleanup.ps1 -BackupPath '\\fileserver\IT\IntuneBackups' -Theme Light
 ```
 
 ## Walkthrough
